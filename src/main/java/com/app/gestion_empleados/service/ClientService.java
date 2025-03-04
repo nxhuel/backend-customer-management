@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface ClientService
 {
-    ClientEntity saveClient(ClientEntity client);
+    ClientEntity saveClient(ClientEntity client, String detail);
 
     List<ClientEntity> getClients();
 
     ClientEntity getClient(Long id);
 
-    ClientEntity updateClient(Long id, ClientEntity client);
+    ClientEntity updateClient(Long id, ClientEntity client, String detail);
 
-    String deleteClient(Long id);
+    String deleteClient(Long id, String detail);
 }

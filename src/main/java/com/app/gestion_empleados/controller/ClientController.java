@@ -1,5 +1,6 @@
 package com.app.gestion_empleados.controller;
 
+import com.app.gestion_empleados.dto.ClientRequest;
 import com.app.gestion_empleados.persistence.entity.ClientEntity;
 import com.app.gestion_empleados.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,9 @@ public class ClientController
     private ClientService clientService;
 
     @PostMapping("/clients")
-    public ResponseEntity<ClientEntity> saveClient(@RequestBody ClientEntity client)
+    public ResponseEntity<ClientEntity> saveClient(@RequestBody ClientRequest request)
     {
-        return new ResponseEntity<>(clientService.saveClient(client), HttpStatus.CREATED);
+        return new ResponseEntity<>(clientService.saveClient(request.getClient(), request.getDetail()), HttpStatus.CREATED);
     }
 
     @GetMapping("/clients")
@@ -36,14 +37,14 @@ public class ClientController
     }
 
     @PutMapping("/clients/{id}")
-    public ResponseEntity<ClientEntity> updateClient(@PathVariable Long id, @RequestBody ClientEntity client)
+    public ResponseEntity<ClientEntity> updateClient(@PathVariable Long id, @RequestBody ClientRequest request)
     {
-        return new ResponseEntity<>(clientService.updateClient(id, client), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.updateClient(id, request.getClient(), request.getDetail()), HttpStatus.OK);
     }
 
     @DeleteMapping("/clients/{id}")
-    public ResponseEntity<String> deleteClient(@PathVariable Long id)
+    public ResponseEntity<String> deleteClient(@PathVariable Long id, @RequestBody ClientRequest request)
     {
-        return new ResponseEntity<>(clientService.deleteClient(id), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.deleteClient(id, request.getDetail()), HttpStatus.OK);
     }
 }
